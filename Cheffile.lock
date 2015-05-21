@@ -1,0 +1,25 @@
+SITE
+  remote: http://community.opscode.com/api/v1
+  specs:
+    7-zip (1.0.2)
+      windows (>= 1.2.2)
+    ark (0.9.0)
+      7-zip (>= 0.0.0)
+      windows (>= 0.0.0)
+    chef_handler (1.1.8)
+    simplelog_handler (1.0.0)
+    windows (1.37.0)
+      chef_handler (>= 0.0.0)
+
+GIT
+  remote: git://github.com/Morphodo/chef-composer.git
+  ref: master
+  sha: 92aee6313fc47dfd51b45c176b7efe41c767c57d
+  specs:
+    composer (0.2.1)
+
+DEPENDENCIES
+  ark (>= 0)
+  composer (>= 0)
+  simplelog_handler (>= 0)
+

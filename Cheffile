@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+#^syntax detection
+
+site 'http://community.opscode.com/api/v1'
+
+cookbook 'ark'
+cookbook "composer",
+  :git => "git://github.com/Morphodo/chef-composer.git"
+
+# development
+cookbook 'simplelog_handler'
