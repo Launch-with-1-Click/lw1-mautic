@@ -31,6 +31,12 @@
     },
     {
       "type": "chef-solo",
+      "json" : {
+        "composer" : {
+          "owner" : "root",
+          "group" : "apache"
+        }
+      },
       "cookbook_paths": [
         "cookbooks",
         "site-cookbooks"
