@@ -47,6 +47,42 @@ template "/etc/php.d/date.ini" do
   variables mautic_location
 end
 
+template "/var/www/html/app/config/local.php" do
+  local true
+  mode  '0600'
+  owner "apache"
+  group "apache"
+  source "/opt/lw1/tasks/local.php.erb"
+end
+
+directory "/opt/lw1/ORM" do
+  mode  '0600'
+  owner "apache"
+  group "apache"
+end
+
+template "/var/www/html/app/bundles/InstallBundle/InstallFixtures/ORM/LoadUserData.php" do
+  local true
+  mode  '0600'
+  owner "apache"
+  group "apache"
+  source "/opt/lw1/fixtures-templates/#{mautic_ver}/LoadUserData.php.erb"
+end
+
+bash 'install mautic by doctrine' do
+  cwd "/var/www/html"
+  code <<-"EOH"
+    sudo -u apache php app/console doctrine:database:create --env=prod --no-interaction
+    sudo -u apache php app/console doctrine:migrations:status --env=prod --no-interaction
+    sudo -u apache php app/console doctrine:schema:create --env=prod --no-interaction
+    sudo -u apache php app/console doctrine:migrations:migrate --env=prod --no-interaction
+    sudo -u apache php app/console doctrine:fixtures:load --env=prod --fixtures=app/bundles/InstallBundle/InstallFixtures/ --no-interaction
+    touch /opt/lw1/.fixtures_done
+  EOH
+  action :run
+  creates "/opt/lw1/.fixtures_done"
+end
+
 
 service 'httpd' do
   action [:enable, :start]

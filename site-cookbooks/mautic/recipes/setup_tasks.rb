@@ -3,12 +3,20 @@ directory "/opt/lw1/tasks" do
   recursive true
 end
 
+remote_directory "/opt/lw1/fixtures-templates" do
+  source "fixtures"
+end
+
 template "/opt/lw1/tasks/first_boot.rb" do
   source "tasks/first_boot.erb"
 end
 
 cookbook_file "/opt/lw1/tasks/date.ini.erb" do
   source "lw1_tasks/date.ini.erb"
+end
+
+cookbook_file "/opt/lw1/tasks/local.php.erb" do
+  source "lw1_tasks/local.php.erb"
 end
 
 cron "setup_mautic_on_init" do

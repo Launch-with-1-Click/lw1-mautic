@@ -1,0 +1,52 @@
+{
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "us-east-1",
+      "source_ami": "ami-10cae778",
+      "instance_type": "c3.large",
+      "ssh_username": "ec2-user",
+      "ssh_timeout": "10m",
+      "ami_name": "Mautic 1.0.5 {{timestamp}}"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "bootstrap.sh"
+      ]
+    },
+    {
+      "type": "file",
+      "source" : ".composer/auth.json",
+      "destination" : "/home/ec2-user/.composer/auth.json"
+    },
+    {
+      "type": "chef-solo",
+      "cookbook_paths": [
+        "cookbooks",
+        "site-cookbooks"
+      ],
+      "run_list" : [
+        "mautic::pre_packages",
+        "composer::default",
+        "mautic::mautic",
+        "mautic::setup_tasks"
+      ]
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "cleanup.sh"
+      ]
+    }
+  ]
+}

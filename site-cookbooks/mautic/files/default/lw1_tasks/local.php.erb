@@ -1,0 +1,28 @@
+<?php
+$parameters = array(
+        'cache_path' => '%kernel.root_dir%/cache',
+        'log_path' => '%kernel.root_dir%/logs',
+        'site_url' => 'https://<%= node[:ec2][:public_hostname] || node[:ec2][:public_ipv4] %>',
+        'install_source' => 'Mautic',
+        'db_driver' => 'pdo_mysql',
+        'db_host' => 'localhost',
+        'db_table_prefix' => null,
+        'db_port' => '3306',
+        'db_name' => 'mautic',
+        'db_user' => 'root',
+        'db_password' => '<%= node[:ec2][:instance_id] %>',
+        'db_path' => null,
+        'mailer_from_name' => 'Amiage Mautic',
+        'mailer_from_email' => 'amiage-mautic@<%= node[:ec2][:public_hostname] || node[:ec2][:public_ipv4] %>',
+        'mailer_transport' => 'mail',
+        'mailer_host' => null,
+        'mailer_port' => null,
+        'mailer_user' => null,
+        'mailer_password' => null,
+        'mailer_encryption' => null,
+        'mailer_auth_mode' => null,
+        'mailer_spool_type' => 'memory',
+        'mailer_spool_path' => '%kernel.root_dir%/spool',
+        'secret_key' => '<%= Digest::SHA256.hexdigest(node[:ec2][:instance_id]) %>',
+);
+
