@@ -25,8 +25,8 @@ bash "execute composer install" do
   group 'apache'
   environment "HOME" => "/home/ec2-user"
   code <<-EOL
-     /usr/local/bin/composer install --no-dev
-     # /usr/local/bin/composer install -v
+     # /usr/local/bin/composer install --no-dev
+     /usr/local/bin/composer install -v
   EOL
   returns [0, 1]
 end

@@ -5,8 +5,10 @@
 VAGRANTFILE_API_VERSION = "2"
 
 if Vagrant::VERSION == "1.7.2"
-  synced_folder_file = File.expand_path("../.vagrant/machines/default/aws/synced_folders", __FILE__)
-  File.unlink(synced_folder_file) if File.exists?(synced_folder_file)
+  synced_folder_files = Dir.glob(File.expand_path("../.vagrant/machines/**/synced_folders", __FILE__))
+  synced_folder_files.map do |synced_folder_file|
+    File.unlink(synced_folder_file) if File.exists?(synced_folder_file)
+  end
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -32,15 +34,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     aws.instance_type = 'c3.large'
     case ENV['AWS_REGION']
     when 'ap-northeast-1'
-      aws.ami = 'ami-c7f90ec7' # Amazon Linux AMI 2015.03.0 (HVM)
+      aws.ami = 'ami-cbf90ecb' # Amazon Linux AMI 2015.03.0 (HVM) SSD
     when 'us-east-1'
-      aws.ami = 'ami-10cae778' # Amazon Linux AMI 2015.03.0 (HVM)
+      aws.ami = 'ami-1ecae776' # Amazon Linux AMI 2015.03.0 (HVM) SSD
     else
       raise "Unsupported region #{ENV['AWS_REGION']}"
     end
 
     aws.tags = {
-      'Name' => 'Mautic 1.0.5 (Develop)'
+      'Name' => 'Mautic 1.1.2 (Develop)'
     }
     override.ssh.username = "ec2-user"
     override.ssh.private_key_path = ENV['AWS_EC2_KEYPASS']
