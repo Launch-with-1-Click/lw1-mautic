@@ -13,7 +13,8 @@
       "instance_type": "c3.large",
       "ssh_username": "ec2-user",
       "ssh_timeout": "10m",
-      "ami_name": "Mautic 1.1.2 {{timestamp}}"
+      "ssh_pty" : true,
+      "ami_name": "Mautic 1.2.0 {{timestamp}}"
     }
   ],
 
