@@ -7,6 +7,7 @@ sudo yum clean all
 sudo rm -rf  /home/ec2-user/.composer
 sudo rm -rf /tmp/*
 sudo rm -rf /vagrant
+sudo rm -rf /var/chef
 sudo rm -f /etc/ssh/ssh_host_*
 cd /var/log
 sudo find /var/log/ -type f -name '*.log' -exec sudo cp /dev/null {} \;
