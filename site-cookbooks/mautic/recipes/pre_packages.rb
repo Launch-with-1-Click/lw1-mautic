@@ -14,6 +14,7 @@ php56-xmlrpc
 php56-soap
 php56-intl
 php56-opcache
+php56-imap
 ].map do |php_m|
   package php_m
 end
