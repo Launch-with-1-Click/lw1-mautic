@@ -2,7 +2,7 @@
 
 package 'git'
 package 'tmux'
-package 'mysql-server'
+package 'mysql56-server'
 
 %w[
 php56

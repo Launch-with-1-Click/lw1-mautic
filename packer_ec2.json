@@ -9,12 +9,12 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "us-east-1",
-      "source_ami": "ami-1ecae776",
+      "source_ami": "ami-60b6c60a",
       "instance_type": "c3.large",
       "ssh_username": "ec2-user",
       "ssh_timeout": "10m",
       "ssh_pty" : true,
-      "ami_name": "Mautic 1.2.0 {{timestamp}}"
+      "ami_name": "Mautic 1.2.3 {{timestamp}}"
     }
   ],
 

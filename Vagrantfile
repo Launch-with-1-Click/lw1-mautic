@@ -34,15 +34,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     aws.instance_type = 'c3.large'
     case ENV['AWS_REGION']
     when 'ap-northeast-1'
-      aws.ami = 'ami-cbf90ecb' # Amazon Linux AMI 2015.03.0 (HVM) SSD
+      aws.ami = 'ami-383c1956' # Amazon Linux AMI 2015.09.1 (HVM) SSD
     when 'us-east-1'
-      aws.ami = 'ami-1ecae776' # Amazon Linux AMI 2015.03.0 (HVM) SSD
+      aws.ami = 'ami-60b6c60a' # Amazon Linux AMI 2015.09.1 (HVM) SSD
     else
       raise "Unsupported region #{ENV['AWS_REGION']}"
     end
 
     aws.tags = {
-      'Name' => 'Mautic 1.2.0 (Develop)'
+      'Name' => 'Mautic 1.2.3 (Develop)'
     }
     override.ssh.username = "ec2-user"
     override.ssh.private_key_path = ENV['AWS_EC2_KEYPASS']
