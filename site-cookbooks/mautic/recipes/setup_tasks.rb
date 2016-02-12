@@ -19,6 +19,10 @@ cookbook_file "/opt/lw1/tasks/local.php.erb" do
   source "lw1_tasks/local.php.erb"
 end
 
+cookbook_file "/opt/lw1/tasks/install_amiage.php.erb" do
+  source "lw1_tasks/install_amiage.php.erb"
+end
+
 cron "setup_mautic_on_init" do
   action :create
   time :reboot
