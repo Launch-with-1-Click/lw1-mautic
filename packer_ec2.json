@@ -1,7 +1,8 @@
 {
   "variables": {
     "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
-    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}"
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+    "product_version": "{{env `PRODUCT_VERSION`}}"
   },
   "builders": [
     {
@@ -14,7 +15,7 @@
       "ssh_username": "ec2-user",
       "ssh_timeout": "10m",
       "ssh_pty" : true,
-      "ami_name": "Mautic 1.2.3 {{timestamp}}"
+      "ami_name": "Mautic {{user `product_version`}} {{timestamp}}"
     }
   ],
 

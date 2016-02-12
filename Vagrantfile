@@ -42,7 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     aws.tags = {
-      'Name' => 'Mautic 1.2.3 (Develop)'
+      'Name' => "Mautic #{ENV['PRODUCT_VERSION']} (Developed by #{ENV['USER']})"
     }
     override.ssh.username = "ec2-user"
     override.ssh.private_key_path = ENV['AWS_EC2_KEYPASS']
