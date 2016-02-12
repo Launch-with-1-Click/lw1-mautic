@@ -42,7 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     aws.tags = {
-      'Name' => 'Mautic 1.2.3 (Develop)'
+      'Name' => "Mautic #{ENV['PRODUCT_VERSION']} (Developed by #{ENV['USER']})"
     }
     override.ssh.username = "ec2-user"
     override.ssh.private_key_path = ENV['AWS_EC2_KEYPASS']
@@ -54,6 +54,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, :path => "bootstrap.sh"
   config.vm.provision "file", source: ".composer/auth.json", destination: ".composer/auth.json"
   config.vm.provision :chef_zero do |chef|
+    chef.nodes_path = "nodes"
     chef.cookbooks_path = ["cookbooks", "site-cookbooks"]
     chef.json = {
       "composer" => {

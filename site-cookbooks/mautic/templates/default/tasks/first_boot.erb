@@ -16,8 +16,10 @@ end
 mautic_location = adjust_location
 mautic_ver = "<%= node[:lw1_mautic][:install][:version] %>"
 
-file '/etc/httpd/conf.d/welcome.conf' do
-  action :delete
+%w[userdir.conf welcome.conf autoindex.conf].map do |conf|
+  file "/etc/httpd/conf.d/#{conf}" do
+    action :delete
+  end
 end
 
 service 'mysqld' do
@@ -72,6 +74,7 @@ bash 'install mautic by doctrine' do
     /usr/bin/php app/console doctrine:migrations:status --env=prod --no-interaction
     /usr/bin/php app/console doctrine:schema:create --env=prod --no-interaction
     /usr/bin/php app/console doctrine:migrations:migrate --env=prod --no-interaction
+    /usr/bin/php /var/www/html/app/console mautic:iplookup:download --env=prod --no-interaction
     /usr/bin/php app/console doctrine:fixtures:load --env=prod --fixtures=app/bundles/InstallBundle/InstallFixtures/ --no-interaction
     touch /var/www/html/.fixtures_done
   EOH
@@ -79,6 +82,37 @@ bash 'install mautic by doctrine' do
   creates "/var/www/html/.fixtures_done"
 end
 
+template "/var/www/html/install_amiage.php" do
+  local true
+  mode  '0644'
+  owner "apache"
+  group "apache"
+  source "/opt/lw1/tasks/install_amiage.php.erb"
+  variables ({
+    :instance_id => node[:ec2][:instance_id]
+  })
+end
+
+cron "mautic_leadlists_update" do
+  action :create
+  command "/usr/bin/php /var/www/html/app/console mautic:leadlists:update --env=prod"
+  user "apache"
+  minute '1-59/5'
+end
+
+cron "mautic_campaigns_update" do
+  action :create
+  command "/usr/bin/php /var/www/html/app/console mautic:campaigns:update --env=prod"
+  user "apache"
+  minute '2-59/5'
+end
+
+cron "mautic_campaigns_trigger" do
+  action :create
+  command "/usr/bin/php /var/www/html/app/console mautic:campaigns:trigger --env=prod"
+  user "apache"
+  minute '3-59/5'
+end
 
 service 'httpd' do
   action [:enable, :start]
