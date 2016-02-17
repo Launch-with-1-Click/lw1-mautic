@@ -114,6 +114,10 @@ cron "mautic_campaigns_trigger" do
   minute '3-59/5'
 end
 
+service 'postfix' do
+  action [:start, :enable]
+end
+
 service 'httpd' do
   action [:enable, :start]
 end
