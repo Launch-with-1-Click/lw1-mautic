@@ -41,3 +41,5 @@ sudo rm -rf /var/cache/nginx/proxy_temp/*
 sudo rm -rf /vagrant
 sudo rm -rf /var/chef
 sudo rm -f  /etc/ssh/ssh_host_*
+
+history -c
