@@ -2,7 +2,7 @@
 $parameters = array(
         'cache_path' => '%kernel.root_dir%/cache',
         'log_path' => '%kernel.root_dir%/logs',
-        'site_url' => 'http://<%= node[:elb][:dnsname] %>',
+        'site_url' => 'http://<%= node[:ec2][:public_hostname].empty? ? node[:ec2][:public_ipv4] : node[:ec2][:public_hostname] %>',
         'install_source' => 'Mautic',
         'db_driver' => 'pdo_mysql',
         'db_host' => '<%= node[:rds][:endpoint] %>',
