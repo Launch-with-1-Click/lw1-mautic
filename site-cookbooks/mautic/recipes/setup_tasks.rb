@@ -7,6 +7,10 @@ remote_directory "/opt/lw1/fixtures-templates" do
   source "fixtures"
 end
 
+remote_directory "/opt/lw1/cfn_appendix" do
+  source "cfn_appendix"
+end
+
 template "/opt/lw1/tasks/first_boot.rb" do
   source "tasks/first_boot.erb"
 end

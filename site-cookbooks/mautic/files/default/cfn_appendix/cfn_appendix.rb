@@ -3,7 +3,7 @@ template "/var/www/html/app/config/local.php" do
   mode  '0600'
   owner "apache"
   group "apache"
-  source "/opt/lw1/tasks/cfn_local.php.erb"
+  source "/opt/lw1/cfn_appendix/cfn_local.php.erb"
 end
 
 bash 'install mautic to rds' do
