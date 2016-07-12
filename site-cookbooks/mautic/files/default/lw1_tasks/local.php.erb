@@ -24,5 +24,6 @@ $parameters = array(
         'mailer_spool_type' => 'memory',
         'mailer_spool_path' => '%kernel.root_dir%/spool',
         'secret_key' => '<%= Digest::SHA256.hexdigest(node[:ec2][:instance_id]) %>',
+        'max_size' => '256',
 );
 

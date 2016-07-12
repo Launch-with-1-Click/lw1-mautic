@@ -93,16 +93,16 @@ template "/var/www/html/install_amiage.php" do
   })
 end
 
-cron "mautic_leadlists_update" do
+cron "mautic_segments_update" do
   action :create
-  command "/usr/bin/php /var/www/html/app/console mautic:leadlists:update --env=prod"
+  command "/usr/bin/php /var/www/html/app/console mautic:segments:update --env=prod"
   user "apache"
   minute '1-59/5'
 end
 
-cron "mautic_campaigns_update" do
+cron "mautic_campaigns_rebuild" do
   action :create
-  command "/usr/bin/php /var/www/html/app/console mautic:campaigns:update --env=prod"
+  command "/usr/bin/php /var/www/html/app/console mautic:campaigns:rebuild --env=prod"
   user "apache"
   minute '2-59/5'
 end
@@ -112,6 +112,20 @@ cron "mautic_campaigns_trigger" do
   command "/usr/bin/php /var/www/html/app/console mautic:campaigns:trigger --env=prod"
   user "apache"
   minute '3-59/5'
+end
+
+cron "mautic_emails_send" do
+  action :create
+  command "/usr/bin/php /var/www/html/app/console mautic:emails:send --env=prod -q"
+  user "apache"
+  minute '1-59/2'
+end
+
+cron "mautic_social_monitoring" do
+  action :create
+  command "/usr/bin/php /var/www/html/app/console mautic:social:monitoring -q > /dev/null 2>&1"
+  user "apache"
+  minute '1-59/3'
 end
 
 service 'postfix' do
