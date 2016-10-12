@@ -80,6 +80,7 @@ bash 'install mautic by doctrine' do
   EOH
   action :run
   creates "/var/www/html/.fixtures_done"
+  not_if "test -f /opt/aws/cloud_formation.json"
 end
 
 template "/var/www/html/install_amiage.php" do
