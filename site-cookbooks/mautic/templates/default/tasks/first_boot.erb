@@ -81,6 +81,7 @@ bash 'install mautic by doctrine' do
   action :run
   creates "/var/www/html/.fixtures_done"
   not_if "test -f /opt/aws/cloud_formation.json"
+  not_if { node[:ec2][:userdata].include?('cfn-init') }
 end
 
 template "/var/www/html/install_amiage.php" do
