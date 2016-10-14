@@ -3,8 +3,8 @@ default[:lw1_mautic][:group] = 'apache'
 
 ## Sum = Sha256
 default[:lw1_mautic][:install] = {
-  version: '2.0.0',
-  checksum: "415854a31050a3e02e2f37736bf4b951892aecb585ba315a3eedc55e19b06d07",
+  version: '2.0.1',
+  checksum: "3dc5e11e3fcd09584e8058c713290c62d2380f18519c08eee3adcd846f04324d",
   base_url: "https://github.com/mautic/mautic/archive/"
 }
 
