@@ -1,3 +1,7 @@
+service 'mysqld' do
+  action [:stop, :disable]
+end
+
 template "/var/www/html/app/config/local.php" do
   local true
   mode  '0600'
@@ -22,8 +26,3 @@ bash 'install mautic to rds' do
   action :run
   creates "/var/www/html/.cfn_fixtures_done"
 end
-
-service 'mysqld' do
-  action [:stop, :disable]
-end
-
