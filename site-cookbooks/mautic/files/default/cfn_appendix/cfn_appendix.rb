@@ -12,7 +12,7 @@ end
 
 bash 'install mautic to rds' do
   cwd "/var/www/html"
-  flags '-e'
+#  flags '-e'
   user "apache"
   group "apache"
   code <<-"EOH"

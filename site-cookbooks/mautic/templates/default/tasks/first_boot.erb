@@ -55,6 +55,8 @@ template "/var/www/html/app/config/local.php" do
   owner "apache"
   group "apache"
   source "/opt/lw1/tasks/local.php.erb"
+  not_if "test -f /opt/aws/cloud_formation.json"
+  not_if { node[:ec2][:userdata].include?('cfn-init') }
 end
 
 template "/var/www/html/app/bundles/InstallBundle/InstallFixtures/ORM/LoadUserData.php" do
@@ -63,6 +65,10 @@ template "/var/www/html/app/bundles/InstallBundle/InstallFixtures/ORM/LoadUserDa
   owner "apache"
   group "apache"
   source "/opt/lw1/fixtures-templates/#{mautic_ver}/LoadUserData.php.erb"
+end
+
+file '/var/www/html/app/bootstrap.php.cache' do
+  action :delete
 end
 
 bash 'install mautic by doctrine' do
