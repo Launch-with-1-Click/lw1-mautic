@@ -33,6 +33,7 @@ if [ -d /home/ec2-user ]; then
 fi
 
 sudo rm -rf /home/ec2-user/.composer
+sudo rm -rf /var/www/html/app/bootstrap.php.cache
 sudo rm -rf /tmp/*
 sudo rm -rf /var/tmp/php/session/*
 sudo rm -rf /var/www/vhosts/*
