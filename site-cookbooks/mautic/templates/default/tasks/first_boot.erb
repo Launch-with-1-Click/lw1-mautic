@@ -56,7 +56,7 @@ template "/var/www/html/app/config/local.php" do
   group "apache"
   source "/opt/lw1/tasks/local.php.erb"
   not_if "test -f /opt/aws/cloud_formation.json"
-  not_if { node[:ec2][:userdata].include?('cfn-init') }
+  not_if { node[:ec2][:userdata].to_s.include?('cfn-init') }
 end
 
 template "/var/www/html/app/bundles/InstallBundle/InstallFixtures/ORM/LoadUserData.php" do
@@ -87,7 +87,7 @@ bash 'install mautic by doctrine' do
   action :run
   creates "/var/www/html/.fixtures_done"
   not_if "test -f /opt/aws/cloud_formation.json"
-  not_if { node[:ec2][:userdata].include?('cfn-init') }
+  not_if { node[:ec2][:userdata].to_s.include?('cfn-init') }
 end
 
 template "/var/www/html/install_amiage.php" do
