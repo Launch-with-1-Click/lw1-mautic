@@ -2,7 +2,7 @@ require 'base64'
 
 def adjust_location
   location = {}
-  case node.ec2.placement_availability_zone
+  case node[:ec2][:placement_availability_zone]
   when /^ap-northeast/
     location[:lang] = "ja"
     location[:zone] = "Asia/Tokyo"
@@ -31,10 +31,10 @@ bash 'mysql_secure_install emulate' do
     /usr/bin/mysqladmin drop test -f
     /usr/bin/mysql -e "DELETE FROM user WHERE user = '';" -D mysql
     /usr/bin/mysql -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');" -D mysql
-    /usr/bin/mysql -e "SET PASSWORD FOR 'root'@'::1' = PASSWORD('#{node.ec2.instance_id}');" -D mysql
-    /usr/bin/mysql -e "SET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('#{node.ec2.instance_id}');" -D mysql
-    /usr/bin/mysql -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('#{node.ec2.instance_id}');" -D mysql
-    /usr/bin/mysqladmin flush-privileges -pnewpassword -p#{node.ec2.instance_id}
+    /usr/bin/mysql -e "SET PASSWORD FOR 'root'@'::1' = PASSWORD('#{node[:ec2][:instance_id]}');" -D mysql
+    /usr/bin/mysql -e "SET PASSWORD FOR 'root'@'127.0.0.1' = PASSWORD('#{node[:ec2][:instance_id]}');" -D mysql
+    /usr/bin/mysql -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('#{node[:ec2][:instance_id]}');" -D mysql
+    /usr/bin/mysqladmin flush-privileges -pnewpassword -p#{node[:ec2][:instance_id]}
   EOH
   action :run
   only_if "/usr/bin/mysql -u root -e 'show databases;'"
@@ -79,8 +79,8 @@ bash 'install mautic by doctrine' do
     /usr/bin/php app/console doctrine:database:create --env=prod --no-interaction
     /usr/bin/php app/console doctrine:migrations:status --env=prod --no-interaction
     /usr/bin/php app/console doctrine:schema:create --env=prod --no-interaction
-    /usr/bin/php app/console doctrine:fixtures:load --env=prod --fixtures=app/bundles/InstallBundle/InstallFixtures/ --no-interaction
     /usr/bin/php app/console doctrine:migrations:migrate --env=prod --no-interaction
+    /usr/bin/php app/console doctrine:fixtures:load --env=prod --append --fixtures=app/bundles/InstallBundle/InstallFixtures/ --no-interaction
     /usr/bin/php /var/www/html/app/console mautic:iplookup:download --env=prod --no-interaction
     touch /var/www/html/.fixtures_done
   EOH
