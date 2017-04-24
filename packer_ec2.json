@@ -10,7 +10,7 @@
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
       "region": "us-east-1",
-      "source_ami": "ami-923d12f5",
+      "source_ami": "ami-c58c1dd3",
       "instance_type": "c3.large",
       "ssh_username": "ec2-user",
       "ssh_timeout": "10m",
