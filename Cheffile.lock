@@ -1,6 +1,7 @@
 SITE
   remote: http://community.opscode.com/api/v1
   specs:
+    apt (6.1.0)
     ark (3.0.0)
       build-essential (>= 0.0.0)
       seven_zip (>= 0.0.0)
@@ -8,21 +9,29 @@ SITE
     build-essential (8.0.1)
       mingw (>= 1.1)
       seven_zip (>= 0.0.0)
+    compat_resource (12.19.0)
+    composer (2.6.0)
+      apt (>= 0.0.0)
+      php (>= 0.0.0)
+      windows (>= 0.0.0)
     mingw (2.0.0)
       seven_zip (>= 0.0.0)
+    mysql (8.3.1)
     ohai (5.0.3)
+    php (4.0.0)
+      build-essential (>= 0.0.0)
+      mysql (>= 6.0.0)
+      xml (>= 0.0.0)
+      yum-epel (>= 0.0.0)
     seven_zip (2.0.2)
       windows (>= 1.2.2)
     simplelog_handler (1.0.0)
     windows (3.0.5)
       ohai (>= 4.0.0)
-
-GIT
-  remote: git://github.com/Morphodo/chef-composer.git
-  ref: master
-  sha: 92aee6313fc47dfd51b45c176b7efe41c767c57d
-  specs:
-    composer (0.2.1)
+    xml (3.1.1)
+      build-essential (>= 0.0.0)
+    yum-epel (2.1.1)
+      compat_resource (>= 12.16.3)
 
 DEPENDENCIES
   ark (>= 0)
