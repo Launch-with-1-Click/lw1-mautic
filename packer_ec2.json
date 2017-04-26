@@ -15,7 +15,7 @@
       "ssh_username": "ec2-user",
       "ssh_timeout": "10m",
       "ssh_pty" : true,
-      "ami_name": "Mautic {{user `product_version`}} {{timestamp}}"
+      "ami_name": "Mautic Powered by AMIAGE {{user `product_version`}} {{timestamp}}"
     }
   ],
 
