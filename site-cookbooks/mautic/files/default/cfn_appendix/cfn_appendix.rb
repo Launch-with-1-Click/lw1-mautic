@@ -16,10 +16,9 @@ bash 'install mautic to rds' do
   user "apache"
   group "apache"
   code <<-"EOH"
-    /usr/bin/php app/console doctrine:migrations:status --env=prod --no-interaction
     /usr/bin/php app/console doctrine:schema:create --env=prod --no-interaction
-    /usr/bin/php app/console doctrine:fixtures:load --env=prod --fixtures=app/bundles/InstallBundle/InstallFixtures/ --no-interaction
     /usr/bin/php app/console doctrine:migrations:migrate --env=prod --no-interaction
+    /usr/bin/php app/console doctrine:fixtures:load --env=prod --append --fixtures=app/bundles/InstallBundle/InstallFixtures/ --no-interaction
     /usr/bin/php /var/www/html/app/console mautic:iplookup:download --env=prod --no-interaction
     touch /var/www/html/.fixtures_done
   EOH
